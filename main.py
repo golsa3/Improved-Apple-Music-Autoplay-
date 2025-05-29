@@ -60,7 +60,7 @@ def update_ui():
 
     queue_box.delete(0, tk.END)
 
-    # ▶ Continue Playing section
+    #  Continue Playing section
     if player.user_queue:
         queue_box.insert(tk.END, "▶ Continue Playing")
         queue_box.itemconfig(tk.END, {'fg': '#000'})
@@ -74,7 +74,7 @@ def update_ui():
         queue_box.insert(tk.END, "──────────────")
         queue_box.itemconfig(tk.END, {'fg': '#aaa'})
 
-    # ♾ Autoplay section
+    # Autoplay section
     if player.autoplay_queue:
         queue_box.insert(tk.END, "♾ Autoplay (Similar music will keep playing)")
         queue_box.itemconfig(tk.END, {'fg': '#555'})
