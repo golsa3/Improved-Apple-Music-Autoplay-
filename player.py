@@ -6,9 +6,9 @@ import os
 import json
 import re
 import random
-import uuid  # 🔑 Used to generate unique IDs
+import uuid  
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")  # ✅ safer than hardcoding
+openai.api_key = os.environ.get("OPENAI_API_KEY")  
 
 class MusicPlayer:
     def __init__(self, songs):
@@ -68,7 +68,6 @@ class MusicPlayer:
 
         vibe = prompt.lower()
 
-        # Curated song pool with tags
         song_pool = [
             {"title": "Velvet Rain", "genre": "jazz", "language": "french", "tags": ["romantic", "sad", "slow"]},
             {"title": "Cyber Drive", "genre": "electronic", "language": "english", "tags": ["party", "dance", "hype"]},
@@ -86,6 +85,6 @@ class MusicPlayer:
 
         selected = random.sample(filtered, min(3, len(filtered)))
         for song in selected:
-            song["id"] = str(uuid.uuid4())  # Assign unique ID
+            song["id"] = str(uuid.uuid4())  
 
         return selected
