@@ -5,10 +5,14 @@ import openai
 import os
 import json
 import re
-openai.api_key = "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"
+import random
+import uuid  # 🔑 Used to generate unique IDs
+
+openai.api_key = os.environ.get("OPENAI_API_KEY")  # ✅ safer than hardcoding
+
 class MusicPlayer:
     def __init__(self, songs):
-        self.autoplay_genre = None  # 🆕 Track current autoplay genre
+        self.autoplay_genre = None
         self.library = songs
         self.user_queue = []
         self.autoplay_queue = []
@@ -25,7 +29,7 @@ class MusicPlayer:
     def play_song(self, song):
         self.current_song = song
         self.played_songs.add(song.get('id', song['title']))
-        self.autoplay_genre = song['genre']  # 🆕 update genre context
+        self.autoplay_genre = song['genre']
         print(f"Now playing: {song['title']}")
         self.speak(f"Now playing {song['title']} in {song['language']}")
         self.autoplay_queue = self.generate_autoplay(song)
@@ -40,13 +44,12 @@ class MusicPlayer:
             s for s in self.library
             if s['genre'] == seed_song['genre']
             and s.get('id', s['title']) not in self.played_songs
-
         ]
         if not filtered:
             filtered = [
                 s for s in self.library
                 if s['genre'] == seed_song['genre']
-                and s['id'] != seed_song['id']
+                and s.get('id', s['title']) != seed_song.get('id', seed_song['title'])
             ]
         return filtered
 
@@ -60,39 +63,29 @@ class MusicPlayer:
         else:
             print("End of queue.")
 
+    def get_gpt_recommendations(self, prompt):
+        print(f"Simulating GPT for prompt: '{prompt}'")
 
-import random
+        vibe = prompt.lower()
 
+        # Curated song pool with tags
+        song_pool = [
+            {"title": "Velvet Rain", "genre": "jazz", "language": "french", "tags": ["romantic", "sad", "slow"]},
+            {"title": "Cyber Drive", "genre": "electronic", "language": "english", "tags": ["party", "dance", "hype"]},
+            {"title": "Golden Hour", "genre": "pop", "language": "english", "tags": ["romantic", "happy", "soft"]},
+            {"title": "Ocean Eyes", "genre": "ambient", "language": "english", "tags": ["chill", "study", "relax"]},
+            {"title": "Nostalgic Nights", "genre": "classic", "language": "spanish", "tags": ["nostalgic", "sad", "romantic"]},
+            {"title": "Firepulse", "genre": "rock", "language": "english", "tags": ["hype", "intense", "workout"]},
+            {"title": "Cloud Waltz", "genre": "instrumental", "language": "none", "tags": ["calm", "chill", "study"]},
+            {"title": "Twilight Drift", "genre": "lofi", "language": "japanese", "tags": ["study", "focus", "chill"]}
+        ]
 
-import random
-import uuid  # 🔑 Used to generate unique IDs
+        filtered = [song for song in song_pool if any(tag in vibe for tag in song["tags"])]
+        if not filtered:
+            filtered = song_pool
 
-def get_gpt_recommendations(prompt):
-    print(f"Simulating GPT for prompt: '{prompt}'")
+        selected = random.sample(filtered, min(3, len(filtered)))
+        for song in selected:
+            song["id"] = str(uuid.uuid4())  # Assign unique ID
 
-    vibe = prompt.lower()
-
-    # Curated song pool with tags
-    song_pool = [
-        {"title": "Velvet Rain", "genre": "jazz", "language": "french", "tags": ["romantic", "sad", "slow"]},
-        {"title": "Cyber Drive", "genre": "electronic", "language": "english", "tags": ["party", "dance", "hype"]},
-        {"title": "Golden Hour", "genre": "pop", "language": "english", "tags": ["romantic", "happy", "soft"]},
-        {"title": "Ocean Eyes", "genre": "ambient", "language": "english", "tags": ["chill", "study", "relax"]},
-        {"title": "Nostalgic Nights", "genre": "classic", "language": "spanish", "tags": ["nostalgic", "sad", "romantic"]},
-        {"title": "Firepulse", "genre": "rock", "language": "english", "tags": ["hype", "intense", "workout"]},
-        {"title": "Cloud Waltz", "genre": "instrumental", "language": "none", "tags": ["calm", "chill", "study"]},
-        {"title": "Twilight Drift", "genre": "lofi", "language": "japanese", "tags": ["study", "focus", "chill"]}
-    ]
-
-    # Filter by vibe
-    filtered = [song for song in song_pool if any(tag in vibe for tag in song["tags"])]
-
-    if not filtered:
-        filtered = song_pool
-
-    # Assign a unique UUID to each selected song
-    selected = random.sample(filtered, min(3, len(filtered)))
-    for song in selected:
-        song["id"] = str(uuid.uuid4())  # 🔑 Assign unique ID
-
-    return selected
+        return selected
