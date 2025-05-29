@@ -1,0 +1,33 @@
+[
+    { "id": 1, "title": "Pop Vibes", "genre": "pop", "language": "english" },
+    { "id": 2, "title": "Golden Hour", "genre": "pop", "language": "english" },
+    { "id": 3, "title": "Pop Stars", "genre": "pop", "language": "spanish" },
+
+    { "id": 4, "title": "Classic Sunrise", "genre": "classic", "language": "french" },
+    { "id": 5, "title": "Nostalgic Nights", "genre": "classic", "language": "english" },
+    { "id": 6, "title": "Echoes of Time", "genre": "classic", "language": "italian" },
+
+    { "id": 7, "title": "House Party", "genre": "house", "language": "german" },
+    { "id": 8, "title": "Midnight Bass", "genre": "house", "language": "english" },
+    { "id": 9, "title": "Sunset Groove", "genre": "house", "language": "english" },
+
+    { "id": 10, "title": "Rock Legends", "genre": "rock", "language": "english" },
+    { "id": 11, "title": "Firepulse", "genre": "rock", "language": "english" },
+    { "id": 12, "title": "Riff Revolution", "genre": "rock", "language": "english" },
+
+    { "id": 13, "title": "Twilight Drift", "genre": "lofi", "language": "japanese" },
+    { "id": 14, "title": "Dreamy Sketches", "genre": "lofi", "language": "english" },
+    { "id": 15, "title": "Quiet Scribbles", "genre": "lofi", "language": "korean" },
+
+    { "id": 16, "title": "Velvet Rain", "genre": "jazz", "language": "french" },
+    { "id": 17, "title": "Blue Smoke", "genre": "jazz", "language": "english" },
+    { "id": 18, "title": "Late Night Lounge", "genre": "jazz", "language": "english" },
+
+    { "id": 19, "title": "Cyber Drive", "genre": "electronic", "language": "english" },
+    { "id": 20, "title": "Neon Flow", "genre": "electronic", "language": "english" },
+    { "id": 21, "title": "Circuit Pulse", "genre": "electronic", "language": "english" },
+
+    { "id": 22, "title": "Cloud Waltz", "genre": "ambient", "language": "none" },
+    { "id": 23, "title": "Ocean Eyes", "genre": "ambient", "language": "english" },
+    { "id": 24, "title": "Stillwater Drift", "genre": "ambient", "language": "english" }
+]
